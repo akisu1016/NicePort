@@ -1,0 +1,104 @@
+send in our slack group:
+
+tip: dont rush thinking of what to make. we have enough time [何を作るか考えて急いではいけません。十分な時間があります。].
+take your time thinking your portfolio title and functionalities [ポートフォリオのタイトルと機能について考えて時間をかけてください]
+
+1. title of your portfolio:
+
+""
+	my portfolio title: sharing site of favorite works
+""
+
+
+2. functionalities: [these are the functionalities that you will add in your portfolio. also think of a fucntionality that feel like you can finish within a span of a month : これらは、ポートフォリオに追加する機能です。また、1か月以内に終了できるような機能性についても考えてください]
+
+"""
+ you can share yor favorite works no matter what genre in this site.
+ Also, you can comment or press the Nice on uploaded reviews.
+
+to create function
+1.login ○
+2.logout　○
+3.upload leviews　○
+4.show leviews　○
+5.post comments　○
+6.press the Nice ○
+"""
+
+todo :
+no image ○
+serach function ○
+serach tags 2
+when registration was failed? 4
+create mypage 6
+edit works which was posted. 1 (pictures)
+modifiy footter 5
+
+too many
+
+3. divide your fuunctionality into 2 parts:
+major functionality : [you will focus on creating this one first. reason: in case the time is not enough atleast you finished the whole major parts of your project : 最初にこれを作成することに焦点を当てます。理由：少なくとも時間が足りない場合は、プロジェクトの主要部分全体を完了しました]
+
+"""
+1.upload leview
+2.show leview
+3.post comments
+"""
+
+minor functionality: [you will focus on this one AFTER you finished your major functionalities: reason: if you have extra time, ofcourse you will have time to experement to expand your knowledge with programming. : あなたはあなたの主要な機能を終えた後にこれに焦点を合わせます：理由：あなたが余分な時間を持っているならば、もちろんあなたはプログラミングであなたの知識を拡大するために実験する時間があるでしょう ]
+
+"""
+4.login
+5.logout
+6.press the Nice
+"""
+
+database design: [list the names of tables that you will be using in your portfolio and give a short description why you need this table : ポートフォリオで使用するテーブルの名前をリストし、このテーブルが必要な理由を簡単に説明してください。 ]
+
+"""""
+users - this is where I store/save the users
+works - this is where I save users favorite works
+genre - this is where I save genre of work
+comments - this is where I save comments
+works_comments - this is junction table for works and comments
+"""""
+
+Nice? - If I identify who press the Nice and count that, this is needed.
+
+users tbl
+- user_id PRIMARY
+- user_name
+- user_profile
+- mail_address
+- password
+- added_date
+- deleted_date
+
+works tbl
+- work_id PRIMARY
+- work_title
+- picture_id FREIGN
+- genre_id FREIGN
+- detail
+- user_id FREIGN
+- nice
+
+pictures tbl
+- picture_id PRIMARY FREIGN
+- picture_url PRIMARY FREIGN
+
+works_pictures tbl
+- work_id PRIMARY
+- picture_id PRIMARY
+
+genre tbl
+- genre_id PRIMARY
+- genre_name
+
+comments tbl
+- comments_id PRIMARY
+- commennt_value
+
+works_comments
+- works_id PRIMARY FREIGN
+- comments_id PRIMARY FREIGN
