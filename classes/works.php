@@ -1,5 +1,5 @@
 <?php
-include 'Database.php';
+include_once 'Database.php';
 
 class Works extends Database
 {
@@ -122,7 +122,8 @@ class Works extends Database
   function update_works_detail($work_id, $title, $detail, $category)
   {
     $sql = "";
-
+    $title = $this->conn->real_escape_string($title);
+    $detail = $this->conn->real_escape_string($detail);
     if ($category == 0) {
       $sql = "UPDATE works SET work_title = '$title', detail = '$detail' WHERE work_id = '$work_id'";
     } else {
@@ -141,7 +142,7 @@ class Works extends Database
 
   function display_users_works($user_id)
   {
-    $sql = "SELECT works.work_id, works.work_title, works.detail, pictures.picture_url, categories.category_name, works.user_id, users.user_name, works.nice, works.added_date FROM works LEFT OUTER JOIN works_pictures ON works.work_id = works_pictures.work_id LEFT OUTER JOIN pictures ON works_pictures.picture_id = pictures.picture_id INNER JOIN categories ON works.category_id = categories.category_id INNER JOIN users ON works.user_id = users.user_id WHERE works.user_id = '$user_id' ORDER BY works.work_id DESC";
+    $sql = "SELECT works.work_id, works.work_title, works.detail, pictures.picture_url, categories.category_name, works.user_id, users.user_name, works.nice, works.added_date FROM works LEFT OUTER JOIN works_pictures ON works.work_id = works_pictures.work_id LEFT OUTER JOIN pictures ON works_pictures.picture_id = pictures.picture_id INNER JOIN categories ON works.category_id = categories.category_id INNER JOIN users ON works.user_id = users.user_id WHERE works.user_id = '$user_id' GROUP BY works.work_id ORDER BY works.work_id DESC";
 
     $result = $this->conn->query($sql);
 

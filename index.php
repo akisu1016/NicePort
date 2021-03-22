@@ -95,7 +95,7 @@ if (isset($_GET['saerch'])) {
         if (isset($_SESSION['user_id'])) {
           echo '<li class="dropdown"><a href="#"><i class="fas fa-user"></i><span>Members</span><i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="users_works.php">MyPage</a></li>
+              <li><a href="mypage.php">MyPage</a></li>
               <li><a href="user_action.php?logout=true">Logout</a></li>
             </ul>
           </li>';

@@ -55,7 +55,6 @@ CREATE TABLE `comments` (
   `comment_id` int(255) NOT NULL,
   `comment_value` text NOT NULL,
   `comment_date` datetime NOT NULL,
-  `user_id` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

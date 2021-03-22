@@ -56,7 +56,7 @@ if (isset($_POST['count'])) {
   exit;
 }
 
-if (isset($_POST['edit_detail'])) {
+if (isset($_POST['edit_work'])) {
   $work_id = $_POST["work_id"];
   $category = $_POST["edit_category"];
   $title = $_POST["edit_title"];

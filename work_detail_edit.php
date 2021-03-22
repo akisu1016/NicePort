@@ -111,7 +111,7 @@ $works_list = $work_obj->display_works_detail($work_id);
           <h2>Edit Leview Details </h2>
           <ol>
             <li><a href="index.php">Home</a></li>
-            <!-- <li><a href="work_detail.php">Leview</a></li> -->
+            <li><a href="mypage.php">Mypage</a></li>
             <li>Edit Leview Details</li>
           </ol>
         </div>
@@ -170,7 +170,7 @@ $works_list = $work_obj->display_works_detail($work_id);
               </ul>
             </div>
             <div class="portfolio-description">
-              <form method="POST" enctype="multipart/form-data" action="work_action.php"> <input type="hidden" name="login" value="true">
+              <form method="POST" enctype="multipart/form-data" action="work_action.php">
                 <div class="mb-3 form-group mx-auto">
                   <label for="Inputtitle"><strong>Works Title</strong></label>
                   <input id="title" type="title" name="title" class="form-control" id="Inputtitle" placeholder="Enter Your Favorite Works Title" value="<?php echo $works_list[0]["work_title"] ?>">
@@ -179,7 +179,7 @@ $works_list = $work_obj->display_works_detail($work_id);
                   <label for="Inputdetail"><strong>Works Detail</strong></label>
                   <textarea id="detail" type="detail" class="form-control" name="detail" rows="10" placeholder="Enter Your Favorite Works Detail"><?php echo $works_list[0]["detail"] ?></textarea>
                 </div>
-                <button type="button" id="edit_button" name="edit_button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">submit</button>
+                <button type="button" id="edit_button" name="edit_button" class="btn btn-outline-primary" data-toggle="button" aria-pressed="false" autocomplete="off">save</button>
               </form>
             </div>
           </div>
@@ -288,6 +288,7 @@ $works_list = $work_obj->display_works_detail($work_id);
           type: "POST",
           url: "work_action.php",
           data: {
+            "edit_work": true,
             "work_id": work_id,
             "edit_category": edit_category,
             "edit_title": edit_title,

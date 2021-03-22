@@ -1,5 +1,5 @@
 <?php
-include 'Database.php';
+include_once 'Database.php';
 
 class Users extends Database
 {
@@ -51,6 +51,23 @@ class Users extends Database
     }
   }
 
+  public function get_user($user_id)
+  {
+    $sql = "SELECT user_id, user_name, user_profile, mail_address From users WHERE user_id = '$user_id'";
+
+    $result = $this->conn->query($sql);
+
+    if ($result->num_rows > 0) {
+      $container = array();
+      while ($row = $result->fetch_assoc()) {
+        $container[] = $row;
+      }
+      return $container;
+    } else {
+      return FALSE;
+    }
+  }
+
   public function register_user($user_name, $user_profile, $mail_address, $password, $added_date)
   {
     if ($this->check_user($mail_address)) {
@@ -69,57 +86,21 @@ class Users extends Database
     }
   }
 
-  // public function display_books()
-  // {
-  //   $sql = "SELECT * FROM books";
-  //   $result = $this->conn->query($sql);
+  public function edit_user($user_name, $user_profile, $mail_address, $user_id)
+  {
+    $user_name = $this->conn->real_escape_string($user_name);
+    $user_profile = $this->conn->real_escape_string($user_profile);
 
-  //   if ($result->num_rows > 0) {
-  //     $container = array();
-  //     while ($row = $result->fetch_assoc()) {
-  //       $container[] = $row;
-  //     }
-  //     return $container;
-  //   } else {
-  //     return FALSE;
-  //   }
-  // }
+    $sql = "UPDATE users SET user_name = '$user_name', user_profile = '$user_profile', mail_address = '$mail_address' WHERE user_id = '$user_id'";
 
-  // public function delete_book($id)
-  // {
-  //   $sql = "DELETE FROM books WHERE book_id = '$id'";
-  //   $return = $this->conn->query($sql);
+    $result = $this->conn->query($sql);
 
-  //   if ($return == TRUE) {
-  //     header('location.Read.php');
-  //   } else {
-  //     die('ERROR: ' . $this->conn->error);
-  //   }
-  // }
-
-  // public function get_one_data($id)
-  // {
-  //   $sql = "SELECT * FROM books WHERE book_id = '$id'";
-  //   $result = $this->conn->query($sql);
-
-  //   if ($result == FALSE) {
-  //     echo "no data found";
-  //   } else {
-  //     return $result->fetch_assoc();
-  //   }
-  // }
-
-  // public function update_book($id, $bkName, $bkGenre, $bkAuthor, $bk_date)
-  // {
-
-  //   $sql = "UPDATE books SET book_name = '$bkName', book_genre = '$bkGenre', book_author = '$bkAuthor', date_added = '$bk_date' WHERE book_id = '$id'";
-
-  //   $result = $this->conn->query($sql);
-
-  //   if ($result == TRUE) {
-  //     echo "book update succcesfully";
-  //   } else {
-  //     die('ERROR: ' . $this->conn->error);
-  //   }
-  // }
+    if ($result == FALSE) {
+      die('failed to update user' . $this->conn->error);
+      return FALSE;
+    } else {
+      echo "success";
+      return TRUE;
+    }
+  }
 }

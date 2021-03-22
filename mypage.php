@@ -1,10 +1,13 @@
 <?php
 session_start();
 include 'work_action.php';
+include 'user_action.php';
+
+$user_info = $user_obj->get_user($_SESSION['user_id']);
 $works_list = $work_obj->display_users_works($_SESSION['user_id']);
-echo "<pre>";
-print_r($works_list);
-echo "</pre>";
+// echo "<pre>";
+// print_r($user_info);
+// echo "</pre>";
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +41,7 @@ echo "</pre>";
   <link href="assets/css/style.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+
   <!-- =======================================================
   * Template Name: Squadfree - v4.0.1
   * Template URL: https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/
@@ -45,6 +49,59 @@ echo "</pre>";
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+
+<style>
+  article {
+    display: flex;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px #999;
+  }
+
+  article figure {
+    margin-right: 20px;
+    width: 100px;
+    height: 100px;
+  }
+
+  article figure img {
+    min-width: 100px;
+    max-width: 100%;
+    vertical-align: top;
+  }
+
+  .user_image {
+    min-width: 50px;
+    max-width: 40%;
+    vertical-align: top;
+  }
+
+  .profile-info {
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0px 0 30px rgba(47, 77, 90, 0.08);
+  }
+
+  .profile-info h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .profile-info ul {
+    list-style: none;
+    padding: 0;
+    font-size: 20px;
+  }
+
+  .profile-info ul li+li {
+    margin-top: 10px;
+  }
+</style>
 
 <body>
 
@@ -107,36 +164,67 @@ echo "</pre>";
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Leview Details</h2>
+          <h2>MyPage</h2>
           <ol>
             <li><a href="index.php">Home</a></li>
-            <!-- <li><a href="work_detail.php">Leview</a></li> -->
-            <li>Leview Details</li>
+            <li>Mypage</a></li>
           </ol>
         </div>
 
       </div>
     </section><!-- Breadcrumbs Section -->
 
-    <!-- ======= Portfolio Details Section ======= -->
     <section id="portfolio-details" class="portfolio-details">
       <div class="container">
-        <?php foreach ($works_list as $row) : ?>
-          <div class="row gy-4">
-            <div class="col-xs-6 col-md-3"></div>
-            <div class="thumbnail">
-              <img class="img-responsive" src="<?php echo $row['picture_url'] ?>">
-              <div class=" caption">
-                <h3><?php echo $row['work_title'] ?></h3>
-                <p><?php echo $row['detail'] ?></p>
-                <p><a href="http://bootstrap3.cyberlab.info/img/sample-256x256.png" class="btn btn-default" role="button" target="_blank">ボタン</a></p>
-              </div>
+        <div class="row gy-4">
+          <div class="col-lg-4">
+            <div class="section-title ">
+              <h2>Profile</h2>
+            </div>
+            <div class="profile-info">
+              <h3>Information</h3>
+              <ul>
+                <li>
+                  <img src="assets/img/testimonials/nouser.png" class="user_image">
+                </li>
+                <li><strong>@<?php echo $user_info[0]["user_name"] ?></strong></li>
+                <li>
+                  <p><?php echo $user_info[0]["user_profile"] ?></p>
+                </li>
+                <!-- <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li> -->
+              </ul>
+              <a class="btn-secondary btn-sm" href="edit_user.php" role="button">Edit Profile</a>
             </div>
           </div>
-        <?php endforeach ?>
+
+          <div class="col-lg-8">
+            <div class="section-title">
+              <h2>Leviews lists</h2>
+            </div>
+            <?php foreach ($works_list as $row) : ?>
+              <article>
+                <figure>
+                  <?php if (isset($row['picture_url'])) {
+                    $src = $row['picture_url'];
+                  } else {
+                    $src = "images/no_image_square.jpg";
+                  }
+                  echo "<img src=$src alt='thumbnail'>";
+                  ?>
+                </figure>
+                <div class="text_content">
+                  <p class="text_date"><time datetime="<?php echo $row['added_date'] ?>"><?php echo $row['added_date'] ?></time></p>
+                  <h2><a href="work_detail_edit.php?work_id=<?php echo $row['work_id'] ?>"><?php echo $row['work_title'] ?></a></h2>
+                  <p class="text_excerpt"><?php echo $row['detail'] ?></p>
+                </div>
+              </article>
+            <?php endforeach ?>
+          </div>
+
+        </div>
       </div>
       </div>
-    </section><!-- End Potfolio Details Section -->
+    </section>
 
 
   </main><!-- End #main -->

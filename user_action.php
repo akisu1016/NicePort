@@ -11,7 +11,7 @@ if (isset($_POST["Login_user"])) {
 }
 
 if (isset($_POST["Registration_user"])) {
-  // $id = $_POST["id"];
+
   $name = $_POST["name"];
   $profile = $_POST["profile"];
   $email = $_POST["email"];
@@ -19,6 +19,18 @@ if (isset($_POST["Registration_user"])) {
   $date = date("Y-m-d");
 
   $user_obj->register_user($name, $profile, $email, $pass, $date);
+}
+
+if (isset($_POST["edit_user"])) {
+  $name = $_POST["user_name"];
+  $profile = $_POST["user_profile"];
+  $email = $_POST["mail_address"];
+  $user_id = $_POST["id"];
+
+  $result = $user_obj->edit_user($name, $profile, $email, $user_id);
+
+  echo $result;
+  exit;
 }
 
 if (isset($_GET['logout'])) {
