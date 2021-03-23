@@ -82,10 +82,10 @@ if (isset($_GET['saerch'])) {
 
         <li class="dropdown"><a href="#"><i class="fas fa-tag"></i><span>Tags</span><i class="bi bi-chevron-down"></i></a>
           <ul>
-            <li><a href="#">Genre sample</a></li>
-            <li><a href="#">Genre sample</a></li>
-            <li><a href="#">Genre sample</a></li>
-            <li><a href="#">Genre sample</a></li>
+            <li><a href="#">Unimplemented</a></li>
+            <li><a href="#">Unimplemented</a></li>
+            <li><a href="#">Unimplemented</a></li>
+            <li><a href="#">Unimplemented</a></li>
           </ul>
         </li>
 

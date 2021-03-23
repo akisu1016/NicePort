@@ -67,3 +67,12 @@ if (isset($_POST['edit_work'])) {
   echo $result;
   exit;
 }
+
+if (isset($_POST['delete_work'])) {
+  $work_id = $_POST["work_id"];
+
+  $result = $work_obj->delete_works($work_id);
+
+  echo $result;
+  exit;
+}

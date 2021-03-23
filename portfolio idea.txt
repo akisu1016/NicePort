@@ -26,11 +26,14 @@ to create function
 """
 
 todo :
+comment style
 no image ○
 serach function ○
-serach tags 2
-when registration was failed? 4
-create mypage 6
+delete function ○
+edit function ○
+serach tags ×　i must add tags column in works_tbl
+when registration was failed ×　
+create mypage ○
 edit works which was posted. 1 (pictures)
 modifiy footter 5
 

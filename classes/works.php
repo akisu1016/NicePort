@@ -55,6 +55,20 @@ class Works extends Database
     }
   }
 
+  function delete_works($work_id)
+  {
+    $sql = "DELETE FROM works WHERE work_id = '$work_id'";
+    $result = $this->conn->query($sql);
+
+    if ($result == FALSE) {
+      die('failed to DELETE' . $this->conn->error);
+      return FALSE;
+    } else {
+      echo "successfull";
+      return TRUE;
+    }
+  }
+
   function insert_works_pictures($work_id, $picture_id)
   {
     $sql = "INSERT INTO works_pictures(work_id, picture_id) VALUES('$work_id', '$picture_id')";

@@ -61,7 +61,6 @@ $works_list = $work_obj->display_users_works($_SESSION['user_id']);
   }
 
   article figure {
-    margin-right: 20px;
     width: 100px;
     height: 100px;
   }
@@ -202,7 +201,8 @@ $works_list = $work_obj->display_users_works($_SESSION['user_id']);
               <h2>Leviews lists</h2>
             </div>
             <?php foreach ($works_list as $row) : ?>
-              <article>
+              <article id="article">
+                <input type="hidden" id="work_id" value="<?php echo $row['work_id'] ?>">
                 <figure>
                   <?php if (isset($row['picture_url'])) {
                     $src = $row['picture_url'];
@@ -212,10 +212,17 @@ $works_list = $work_obj->display_users_works($_SESSION['user_id']);
                   echo "<img src=$src alt='thumbnail'>";
                   ?>
                 </figure>
-                <div class="text_content">
-                  <p class="text_date"><time datetime="<?php echo $row['added_date'] ?>"><?php echo $row['added_date'] ?></time></p>
-                  <h2><a href="work_detail_edit.php?work_id=<?php echo $row['work_id'] ?>"><?php echo $row['work_title'] ?></a></h2>
-                  <p class="text_excerpt"><?php echo $row['detail'] ?></p>
+                <div class="container">
+                  <div class="row text_content">
+                    <p class="text_date"><time datetime="<?php echo $row['added_date'] ?>"><?php echo $row['added_date'] ?></time></p>
+                    <div class="col-sm-11">
+                      <h2><a href="work_detail_edit.php?work_id=<?php echo $row['work_id'] ?>"><?php echo $row['work_title'] ?></a></h2>
+                    </div>
+                    <div class="col-sm-1">
+                      <button type="button" id="delete" class="btn btn-secondary rounded-circle p-0" style="width:2rem;height:2rem;">ー</button>
+                    </div>
+                    <p class="text_excerpt"><?php echo $row['detail'] ?></p>
+                  </div>
                 </div>
               </article>
             <?php endforeach ?>
@@ -319,24 +326,28 @@ $works_list = $work_obj->display_users_works($_SESSION['user_id']);
   <script src="assets/js/main.js"></script>
   <script>
     $(function() {
-      $("#nice_button").on("click", function(event) {
-        work_id = $('#work_id').val();
-        count = $("#val").text();
-        $.ajax({
-          type: "POST",
-          url: "work_action.php",
-          data: {
-            "work_id": work_id,
-            "count": count
-          },
-          dataType: "text"
-        }).done(function(data) {
-          console.log(data);
-          $("#val").val(data);
-          $("#val").text(data);
-        }).fail(function(XMLHttpRequest, textStatus, error) {
-          alert(error);
-        });
+      $(document).on("click", "#delete", function(e) {
+        // console.log($(this).parents("#article").children("#work_id").val());
+        if (!confirm('Do you want to delete this post?')) {
+          return false;
+        } else {
+          $work_id = $(this).parents("#article").children("#work_id").val();
+          $(this).parents("#article").fadeOut(200).queue(function() {
+            this.remove();
+          });
+          $.ajax({
+            type: "POST",
+            url: "work_action.php",
+            data: {
+              "work_id": $work_id,
+              "delete_work": true
+            },
+            dataType: "text"
+          }).done(function(data) {}).fail(function(XMLHttpRequest, textStatus, error) {
+            alert(error);
+          });
+        }
+
       });
     });
   </script>
