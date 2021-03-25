@@ -61,7 +61,12 @@ $works_list = $work_obj->display_works_detail($work_id);
 
       <div class="from-group">
         <form action="index.php" method="GET">
-          <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
+          <div class="input-group">
+            <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
+            <span class="input-group-btn">
+              <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+            </span>
+          </div>
         </form>
       </div>
 
@@ -143,11 +148,11 @@ $works_list = $work_obj->display_works_detail($work_id);
               </div>
               <div class="swiper-pagination"></div>
             </div>
-            <div class="mb-4 form-group mx-auto" style="width: 500px;">
+            <!-- <div class="mb-4 form-group mx-auto" style="width: 500px;">
               <div class="custom-file" id="image_form">
                 <input id="file" type="file" class="form-control" name="userfile[]" multiple accept="image/*">
               </div>
-            </div>
+            </div> -->
           </div>
 
           <div class=" col-lg-4">

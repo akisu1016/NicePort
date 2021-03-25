@@ -56,7 +56,12 @@ $user_info = $user_obj->get_user($_SESSION['user_id']);
 
       <div class="from-group">
         <form action="index.php" method="GET">
-          <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
+          <div class="input-group">
+            <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
+            <span class="input-group-btn">
+              <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+            </span>
+          </div>
         </form>
       </div>
 
@@ -127,7 +132,7 @@ $user_info = $user_obj->get_user($_SESSION['user_id']);
         <div style="margin: 0 -15px 40px -15px"></div>
         <form method="POST" enctype="multipart/form-data" action="">
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
-            <label for="Inputfile">Your Icon</label>
+            <label for="Inputfile">New Your Icon</label>
             <div class="custom-file" id="image_form">
               <input id="file" type="file" class="form-control" name="user_icon" accept="image/*">
             </div>

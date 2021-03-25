@@ -7,7 +7,17 @@ if (isset($_POST["Login_user"])) {
   $email = $_POST["email"];
   $pass = $_POST['pass'];
 
-  $user_obj->login_user($email, $pass);
+  $flg = $user_obj->login_user($email, $pass);
+
+  if ($flg === 1) {
+    header("Location: ./index.php", 301);
+    exit;
+  } elseif ($flg === 2) {
+    header("Location: ./login.php?error=p", 301);
+  } else {
+    header("Location: ./login.php?error=e", 301);
+    exit;
+  }
 }
 
 if (isset($_POST["Registration_user"])) {

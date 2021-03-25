@@ -53,7 +53,12 @@ session_start();
 
       <div class="from-group">
         <form action="index.php" method="GET">
-          <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
+          <div class="input-group">
+            <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
+            <span class="input-group-btn">
+              <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+            </span>
+          </div>
         </form>
       </div>
 
@@ -121,16 +126,27 @@ session_start();
           <h1 class="page-title">Members Login</h1>
         </div>
         <div style="margin: 0 -15px 40px -15px"></div>
-        <form method="POST" action="user_action.php"> <input type="hidden" name="login" value="true">
+        <form method="POST" action="user_action.php" class="needs-validation" validate>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <label for="InputEmail">Email address</label>
-            <input type="email" name="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" name="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <label for="InputPassword1">Password</label>
-            <input type="password" name="pass" class="form-control" id="InputPassword" placeholder="Password">
+            <input type="password" name="pass" class="form-control" id="InputPassword" placeholder="Password" required>
           </div>
+          <?php if (isset($_GET['error'])) : ?>
+            <?php if ($_GET['error'] == "p") : ?>
+              <div class="mb-4 form-group mx-auto" style="width: 500px;">
+                <label for="InputPassword1">The password is wrong.</label>
+              </div>
+            <?php elseif ($_GET['error'] == "e") : ?>
+              <div class="mb-4 form-group mx-auto" style="width: 500px;">
+                <label for="InputPassword1">The email address does not exist.</label>
+              </div>
+            <?php endif ?>
+          <?php endif ?>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <button type="submit" name="Login_user" class="btn btn-primary">Login</button>
           </div>

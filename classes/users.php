@@ -19,12 +19,12 @@ class Users extends Database
       if (password_verify($password, $container[0]['password'])) {
         $_SESSION['user_id'] = $container[0]['user_id'];
         $_SESSION['user_name'] = $container[0]['user_name'];
-        http_response_code(301);
-        header("Location: ./index.php");
-        exit;
+        return 1;
       } else {
-        echo "failed";
+        return 2;
       }
+    } else {
+      return 3;
     }
   }
 

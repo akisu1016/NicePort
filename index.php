@@ -72,7 +72,12 @@ if (isset($_GET['saerch'])) {
 
     <div class="from-group">
       <form action="index.php" method="GET">
-        <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
+        <div class="input-group">
+          <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
+          <span class="input-group-btn">
+            <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+          </span>
+        </div>
       </form>
     </div>
 

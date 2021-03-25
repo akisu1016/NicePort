@@ -59,7 +59,12 @@ if (is_null($_SESSION['user_id'])) {
 
       <div class="from-group">
         <form action="index.php" method="GET">
-          <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
+          <div class="input-group">
+            <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
+            <span class="input-group-btn">
+              <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+            </span>
+          </div>
         </form>
       </div>
 
@@ -138,13 +143,6 @@ if (is_null($_SESSION['user_id'])) {
           </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <label for="Inputfile">Display images</label>
-            <!-- <input id="lefile" type="file" name="userfile" style="display:none">
-            <div class="input-group" id="image_form">
-              <input type="text" id="photoCover" class="form-control" placeholder="select file...">
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-primary" onclick="$('input[id=lefile]').click();">Browse</button>
-              </span>
-            </div> -->
             <div class="custom-file" id="image_form">
               <input id="lefile" type="file" class="form-control" name="userfile[]" multiple accept="image/*">
             </div>

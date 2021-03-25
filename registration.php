@@ -53,8 +53,12 @@ session_start();
 
       <div class="from-group">
         <form action="index.php" method="GET">
-          <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
-        </form>
+          <div class="input-group">
+            <input type="search" class="form-control" name="saerch" id="" aria-describedby="helpId" placeholder="Serach">
+            <span class="input-group-btn">
+              <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
+            </span>
+          </div>
       </div>
 
       <!-- <form action="" method="POST">
@@ -131,7 +135,7 @@ session_start();
           </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <label for="InputName">User Name</label>
-            <input type="name" name="name" class="form-control" id="Inputname" placeholder="Enter Your Name">
+            <input type="name" name="name" class="form-control" id="Inputname" placeholder="Enter Your Name" required>
           </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <label for="Inputprofile">User Profile</label>
@@ -139,12 +143,12 @@ session_start();
           </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <label for="InputEmail">Email address</label>
-            <input type="email" name="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" name="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" required>
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <label for="InputPassword1">Password</label>
-            <input type="password" name="pass" class="form-control" id="InputPassword" placeholder="Password">
+            <input type="password" name="pass" class="form-control" id="InputPassword" placeholder="Password" required>
           </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <button type="submit" name="Registration_user" class="btn btn-primary">Register</button>
