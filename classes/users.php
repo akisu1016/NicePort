@@ -53,7 +53,7 @@ class Users extends Database
 
   public function get_user($user_id)
   {
-    $sql = "SELECT user_id, user_name, user_profile, mail_address From users WHERE user_id = '$user_id'";
+    $sql = "SELECT user_id, user_name, user_icon, user_profile, mail_address From users WHERE user_id = '$user_id'";
 
     $result = $this->conn->query($sql);
 
@@ -68,10 +68,14 @@ class Users extends Database
     }
   }
 
-  public function register_user($user_name, $user_profile, $mail_address, $password, $added_date)
+  public function register_user($user_name, $user_icon, $user_profile, $mail_address, $password, $added_date)
   {
+
+    $user_name = $this->conn->real_escape_string($user_name);
+    $user_profile = $this->conn->real_escape_string($user_profile);
+
     if ($this->check_user($mail_address)) {
-      $sql = "INSERT INTO users(user_name, user_profile, mail_address, password, added_date) VALUES('$user_name', '$user_profile', '$mail_address', '$password', '$added_date')";
+      $sql = "INSERT INTO users(user_name, user_icon, user_profile, mail_address, password, added_date) VALUES('$user_name', '$user_icon', '$user_profile', '$mail_address', '$password', '$added_date')";
 
       $result = $this->conn->query($sql);
 
@@ -86,12 +90,12 @@ class Users extends Database
     }
   }
 
-  public function edit_user($user_name, $user_profile, $mail_address, $user_id)
+  public function edit_user($user_name, $user_icon, $user_profile, $mail_address, $user_id)
   {
     $user_name = $this->conn->real_escape_string($user_name);
     $user_profile = $this->conn->real_escape_string($user_profile);
 
-    $sql = "UPDATE users SET user_name = '$user_name', user_profile = '$user_profile', mail_address = '$mail_address' WHERE user_id = '$user_id'";
+    $sql = "UPDATE users SET user_name = '$user_name', user_icon = '$user_icon', user_profile = '$user_profile', mail_address = '$mail_address' WHERE user_id = '$user_id'";
 
     $result = $this->conn->query($sql);
 

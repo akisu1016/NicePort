@@ -201,7 +201,7 @@ class Works extends Database
 
   function display_works_comments($work_id)
   {
-    $sql = "SELECT comments.comment_id, comments.comment_value, comments.comment_date, comments.user_id, users.user_name FROM comments, works_comments, users WHERE works_comments.comment_id = comments.comment_id AND comments.user_id = users.user_id AND works_comments.work_id = '$work_id'";
+    $sql = "SELECT comments.comment_id, comments.comment_value, comments.comment_date, comments.user_id, users.user_name, users.user_icon FROM comments, works_comments, users WHERE works_comments.comment_id = comments.comment_id AND comments.user_id = users.user_id AND works_comments.work_id = '$work_id'";
 
     $result = $this->conn->query($sql);
 

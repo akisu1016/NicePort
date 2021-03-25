@@ -186,7 +186,13 @@ $comment_list = $work_obj->display_works_comments($work_id);
                       <?php echo $row['comment_value'] ?>
                       <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                     </p>
-                    <img src="assets/img/testimonials/nouser.png" class="testimonial-img" alt="">
+                    <?php if (isset($row['user_icon']) and !empty($row['user_icon'])) {
+                      $src = $row['user_icon'];
+                    } else {
+                      $src = "assets/img/testimonials/nouser.png";
+                    }
+                    echo "<img src='$src' class='testimonial-img' alt=''>";
+                    ?>
                     <h3>@<?php echo $row['user_name'] ?></h3>
                     <h4><?php echo $row['comment_date'] ?></h4>
                   </div>

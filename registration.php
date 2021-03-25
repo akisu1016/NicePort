@@ -121,11 +121,14 @@ session_start();
           <h1 class="page-title">Members Registration</h1>
         </div>
         <div style="margin: 0 -15px 40px -15px"></div>
-        <form method="POST" action="user_action.php"> <input type="hidden" name="login" value="true">
-          <!-- <div class="mb-4 form-group mx-auto" style="width: 500px;">
-            <label for="InputId">User ID</label>
-            <input type="id" name="id" class="form-control" id="Inputid" placeholder="Enter ID">
-          </div> -->
+        <form method="POST" enctype="multipart/form-data" action="user_action.php">
+          <div class="mb-4 form-group mx-auto" style="width: 500px;">
+            <label for="Inputfile">Your Icon</label>
+            <div class="custom-file" id="image_form">
+              <input id="file" type="file" class="form-control" name="user_icon" accept="image/*">
+            </div>
+            <!-- <p class="help-block">You can select up to 5 pieces.</p> -->
+          </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <label for="InputName">User Name</label>
             <input type="name" name="name" class="form-control" id="Inputname" placeholder="Enter Your Name">

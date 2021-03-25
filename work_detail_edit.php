@@ -127,9 +127,9 @@ $works_list = $work_obj->display_works_detail($work_id);
 
           <div class="col-lg-8">
             <div class="portfolio-details-slider swiper-container">
-              <div class="swiper-wrapper align-items-center">
+              <div id="swiper" class="swiper-wrapper align-items-center">
                 <?php foreach ($works_list as $row) : ?>
-                  <div class="swiper-slide">
+                  <div id="image" class="swiper-slide">
                     <?php if (isset($row['picture_url'])) {
                       $src = $row['picture_url'];
                     } else {
@@ -143,9 +143,14 @@ $works_list = $work_obj->display_works_detail($work_id);
               </div>
               <div class="swiper-pagination"></div>
             </div>
+            <div class="mb-4 form-group mx-auto" style="width: 500px;">
+              <div class="custom-file" id="image_form">
+                <input id="file" type="file" class="form-control" name="userfile[]" multiple accept="image/*">
+              </div>
+            </div>
           </div>
 
-          <div class="col-lg-4">
+          <div class=" col-lg-4">
             <div class="portfolio-info">
               <h3>Information</h3>
               <ul>
@@ -170,7 +175,7 @@ $works_list = $work_obj->display_works_detail($work_id);
               </ul>
             </div>
             <div class="portfolio-description">
-              <form method="POST" enctype="multipart/form-data" action="work_action.php">
+              <form method="" action="">
                 <div class="mb-3 form-group mx-auto">
                   <label for="Inputtitle"><strong>Works Title</strong></label>
                   <input id="title" type="title" name="title" class="form-control" id="Inputtitle" placeholder="Enter Your Favorite Works Title" value="<?php echo $works_list[0]["work_title"] ?>">
@@ -280,20 +285,19 @@ $works_list = $work_obj->display_works_detail($work_id);
   <script>
     $(function() {
       $("#edit_button").on("click", function(event) {
-        work_id = $('#work_id').val();
-        edit_category = $('#category').val();
-        edit_title = $('#title').val();
-        edit_detail = $('#detail').val();
+        var formData = new FormData();
+        formData.append('edit_work', true);
+        formData.append('work_id', $('#work_id').val());
+        formData.append('edit_category', $('#category').val());
+        formData.append('edit_title', $('#title').val());
+        formData.append('edit_detail', $('#detail').val());
+
         $.ajax({
           type: "POST",
           url: "work_action.php",
-          data: {
-            "edit_work": true,
-            "work_id": work_id,
-            "edit_category": edit_category,
-            "edit_title": edit_title,
-            "edit_detail": edit_detail
-          },
+          data: formData,
+          processData: false,
+          contentType: false,
           dataType: "text"
         }).done(function(data) {
           if (data) {
@@ -304,6 +308,21 @@ $works_list = $work_obj->display_works_detail($work_id);
         }).fail(function(XMLHttpRequest, textStatus, error) {
           alert(error);
         });
+      });
+    });
+
+    $(function() {
+      $('#file').change(function() {
+        $('#image').remove();
+        var file = $(this).prop('files')[0];
+        if (!file.type.match('image.*')) {
+          return;
+        }
+        var fileReader = new FileReader();
+        fileReader.onloadend = function() {
+          $('#swiper').prepend('<div id="image" class="swiper-slide"><img src="' + fileReader.result + '"/>' + '</div>');
+        }
+        fileReader.readAsDataURL(file);
       });
     });
   </script>

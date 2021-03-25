@@ -184,7 +184,14 @@ $works_list = $work_obj->display_users_works($_SESSION['user_id']);
               <h3>Information</h3>
               <ul>
                 <li>
-                  <img src="assets/img/testimonials/nouser.png" class="user_image">
+                  <?php if (isset($user_info[0]['user_icon']) and !empty($user_info[0]['user_icon'])) {
+                    $src = $user_info[0]['user_icon'];
+                  } else {
+                    $src = "assets/img/testimonials/nouser.png";
+                  }
+                  echo "<img src='$src' class='user_image' alt=''>";
+                  ?>
+
                 </li>
                 <li><strong>@<?php echo $user_info[0]["user_name"] ?></strong></li>
                 <li>
@@ -200,32 +207,40 @@ $works_list = $work_obj->display_users_works($_SESSION['user_id']);
             <div class="section-title">
               <h2>Leviews lists</h2>
             </div>
-            <?php foreach ($works_list as $row) : ?>
-              <article id="article">
-                <input type="hidden" id="work_id" value="<?php echo $row['work_id'] ?>">
-                <figure>
-                  <?php if (isset($row['picture_url'])) {
-                    $src = $row['picture_url'];
-                  } else {
-                    $src = "images/no_image_square.jpg";
-                  }
-                  echo "<img src=$src alt='thumbnail'>";
-                  ?>
-                </figure>
-                <div class="container">
-                  <div class="row text_content">
-                    <p class="text_date"><time datetime="<?php echo $row['added_date'] ?>"><?php echo $row['added_date'] ?></time></p>
-                    <div class="col-sm-11">
-                      <h2><a href="work_detail_edit.php?work_id=<?php echo $row['work_id'] ?>"><?php echo $row['work_title'] ?></a></h2>
+            <?php if ($works_list !== FALSE) : ?>
+              <?php foreach ($works_list as $row) : ?>
+                <article id="article">
+                  <input type="hidden" id="work_id" value="<?php echo $row['work_id'] ?>">
+                  <figure>
+                    <?php if (isset($row['picture_url'])) {
+                      $src = $row['picture_url'];
+                    } else {
+                      $src = "images/no_image_square.jpg";
+                    }
+                    echo "<img src=$src alt='thumbnail'>";
+                    ?>
+                  </figure>
+                  <div class="container">
+                    <div class="row text_content">
+                      <p class="text_date"><time datetime="<?php echo $row['added_date'] ?>"><?php echo $row['added_date'] ?></time></p>
+                      <div class="col-sm-11">
+                        <h2><a href="work_detail_edit.php?work_id=<?php echo $row['work_id'] ?>"><?php echo $row['work_title'] ?></a></h2>
+                      </div>
+                      <div class="col-sm-1">
+                        <button type="button" id="delete" class="btn btn-secondary rounded-circle p-0" style="width:2rem;height:2rem;">ー</button>
+                      </div>
+                      <p class="text_excerpt"><?php echo $row['detail'] ?></p>
                     </div>
-                    <div class="col-sm-1">
-                      <button type="button" id="delete" class="btn btn-secondary rounded-circle p-0" style="width:2rem;height:2rem;">ー</button>
-                    </div>
-                    <p class="text_excerpt"><?php echo $row['detail'] ?></p>
                   </div>
+                </article>
+              <?php endforeach ?>
+            <?php else : ?>
+              <div class="container">
+                <div class="row　mx-auto">
+                  <h1 class="text-center">Leviews not exists</h1>
                 </div>
-              </article>
-            <?php endforeach ?>
+              </div>
+            <?php endif; ?>
           </div>
 
         </div>

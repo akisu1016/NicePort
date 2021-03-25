@@ -17,17 +17,37 @@ if (isset($_POST["Registration_user"])) {
   $email = $_POST["email"];
   $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
   $date = date("Y-m-d");
+  $user_icon = "";
 
-  $user_obj->register_user($name, $profile, $email, $pass, $date);
+  if (is_uploaded_file($_FILES["user_icon"]["tmp_name"])) {
+    $filename = $_FILES['user_icon']['name'];
+    $target_dir = 'uploads/icons/';
+    $target_file = $target_dir . basename($filename);
+
+    move_uploaded_file($_FILES['user_icon']['tmp_name'], $target_file);
+    $user_icon = $target_file;
+  }
+
+  $user_obj->register_user($name, $user_icon, $profile, $email, $pass, $date);
 }
 
 if (isset($_POST["edit_user"])) {
   $name = $_POST["user_name"];
   $profile = $_POST["user_profile"];
   $email = $_POST["mail_address"];
-  $user_id = $_POST["id"];
+  $user_id = $_POST["user_id"];
+  $user_icon = "";
 
-  $result = $user_obj->edit_user($name, $profile, $email, $user_id);
+  if (is_uploaded_file($_FILES["user_icon"]["tmp_name"])) {
+    $filename = $_FILES['user_icon']['name'];
+    $target_dir = 'uploads/icons/';
+    $target_file = $target_dir . basename($filename);
+
+    move_uploaded_file($_FILES['user_icon']['tmp_name'], $target_file);
+    $user_icon = $target_file;
+  }
+
+  $result = $user_obj->edit_user($name, $user_icon, $profile, $email, $user_id);
 
   echo $result;
   exit;

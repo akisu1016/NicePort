@@ -125,7 +125,14 @@ $user_info = $user_obj->get_user($_SESSION['user_id']);
           <h1 class="page-title">Profile Edit</h1>
         </div>
         <div style="margin: 0 -15px 40px -15px"></div>
-        <form method="POST" action="user_action.php">
+        <form method="POST" enctype="multipart/form-data" action="">
+          <div class="mb-4 form-group mx-auto" style="width: 500px;">
+            <label for="Inputfile">Your Icon</label>
+            <div class="custom-file" id="image_form">
+              <input id="file" type="file" class="form-control" name="user_icon" accept="image/*">
+            </div>
+            <!-- <p class="help-block">You can select up to 5 pieces.</p> -->
+          </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <input type="id" name="id" class="form-control" id="user_id" hidden value="<?php echo $user_info[0]["user_id"] ?>">
             <label for="InputName">User Name</label>
@@ -243,21 +250,19 @@ $user_info = $user_obj->get_user($_SESSION['user_id']);
 <script>
   $(function() {
     $("#edit_button").on("click", function(event) {
-      id = $('#user_id').val();
-      user_name = $('#user_name').val();
-      user_profile = $('#user_profile').val();
-      mail_address = $('#mail_address').val();
-      console.log(user_name, user_profile, mail_address);
+      var formData = new FormData();
+      formData.append('edit_user', true);
+      formData.append('user_id', $('#user_id').val());
+      formData.append('user_name', $('#user_name').val());
+      formData.append('user_profile', $('#user_profile').val());
+      formData.append('mail_address', $('#mail_address').val());
+      formData.append('user_icon', $('#file').prop('files')[0]);
       $.ajax({
         type: "POST",
         url: "user_action.php",
-        data: {
-          "edit_user": true,
-          "user_name": user_name,
-          "user_profile": user_profile,
-          "mail_address": mail_address,
-          "id": id
-        },
+        data: formData,
+        processData: false,
+        contentType: false,
         dataType: "text"
       }).done(function(data) {
         console.log(data);
@@ -269,6 +274,72 @@ $user_info = $user_obj->get_user($_SESSION['user_id']);
       }).fail(function(XMLHttpRequest, textStatus, error) {
         alert(error);
       });
+    });
+  });
+
+  $(function() {
+    $('#image_form').after('<span id="display_icon"></span>');
+
+    // アップロードするファイルを選択
+    $('input[type=file]').change(function() {
+      var file = $(this).prop('files')[0];
+
+      // 画像以外は処理を停止
+      if (!file.type.match('image.*')) {
+        // クリア
+        $(this).val('');
+        $('#display_icon').html('');
+        return;
+      }
+
+      // 新幅・高さ
+      var new_w = 150;
+      var new_h = 150;
+
+      // 画像表示
+      var reader = new FileReader();
+      reader.onload = function() {
+        var img_src = $('<img>').attr('src', reader.result);
+
+        var org_img = new Image();
+        org_img.src = reader.result;
+        org_img.onload = function() {
+          // 元幅・高さ
+          var org_w = this.width;
+          var org_h = this.height;
+          // 幅 ＜ 規定幅 && 高さ ＜ 規定高さ
+          if (org_w < new_w && org_h < new_h) {
+            // 幅・高さは変更しない
+            new_w = org_w;
+            new_h = org_h;
+          } else {
+            // 幅 ＞ 規定幅 || 高さ ＞ 規定高さ
+            if (org_w > org_h) {
+              // 幅 ＞ 高さ
+              var percent_w = new_w / org_w;
+              // 幅を規定幅、高さを計算
+              new_h = Math.ceil(org_h * percent_w);
+            } else if (org_w < org_h) {
+              // 幅 ＜高さ
+              var percent_h = new_h / org_h;
+              // 高さを規定幅、幅を計算
+              new_w = Math.ceil(org_w * percent_h);
+            }
+          }
+
+          // リサイズ画像
+          $('#display_icon').html($('<canvas>').attr({
+            'id': 'canvas',
+            'width': new_w,
+            'height': new_h
+          }));
+          var ctx = $('#canvas')[0].getContext('2d');
+          var resize_img = new Image();
+          resize_img.src = reader.result;
+          ctx.drawImage(resize_img, 0, 0, new_w, new_h);
+        };
+      }
+      reader.readAsDataURL(file);
     });
   });
 </script>
