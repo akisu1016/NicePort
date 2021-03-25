@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 19, 2021 at 04:12 AM
+-- Generation Time: Mar 25, 2021 at 05:47 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -55,6 +55,7 @@ CREATE TABLE `comments` (
   `comment_id` int(255) NOT NULL,
   `comment_value` text NOT NULL,
   `comment_date` datetime NOT NULL,
+  `user_id` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -65,7 +66,12 @@ INSERT INTO `comments` (`comment_id`, `comment_value`, `comment_date`, `user_id`
 (18, 'It is looks like good. ', '2021-03-17 13:20:04', 4),
 (19, 'うまそう', '2021-03-17 13:20:13', 4),
 (20, '零式やれ', '2021-03-17 13:34:23', 2),
-(21, '\'素敵\'', '2021-03-19 10:28:34', 4);
+(21, '\'素敵\'', '2021-03-19 10:28:34', 4),
+(22, 'good!!', '2021-03-22 13:17:01', 4),
+(23, 'good!!', '2021-03-22 20:21:56', 4),
+(24, '面白すぎる', '2021-03-22 20:23:01', 4),
+(25, 'roboroborobo', '2021-03-24 12:40:30', 6),
+(26, 'nice', '2021-03-25 10:04:04', 6);
 
 -- --------------------------------------------------------
 
@@ -102,7 +108,13 @@ INSERT INTO `pictures` (`picture_id`, `picture_url`) VALUES
 (58, 'uploads/pexels-pixabay-45243.jpg'),
 (59, 'uploads/pexels-cottonbro-4709822.jpg'),
 (60, 'uploads/pexels-luana-bento-3357078.jpg'),
-(61, 'uploads/pexels-pixabay-45243.jpg');
+(61, 'uploads/pexels-pixabay-45243.jpg'),
+(62, 'uploads/shukatu-trimed.jpg'),
+(63, 'uploads/map_pin_shadow.png'),
+(64, 'uploads/kinniku_hanasu.png'),
+(65, 'uploads/pexels-alexandr-podvalny-2166553.jpg'),
+(66, 'uploads/pexels-thorsten-technoman-338515.jpg'),
+(67, 'uploads/pexels-oliver-sjÃ¶strÃ¶m-1020016.jpg');
 
 -- --------------------------------------------------------
 
@@ -113,6 +125,7 @@ INSERT INTO `pictures` (`picture_id`, `picture_url`) VALUES
 CREATE TABLE `users` (
   `user_id` int(10) NOT NULL,
   `user_name` varchar(30) NOT NULL,
+  `user_icon` text NOT NULL,
   `user_profile` text DEFAULT NULL,
   `mail_address` varchar(200) NOT NULL,
   `password` varchar(99) NOT NULL,
@@ -124,10 +137,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_profile`, `mail_address`, `password`, `added_date`, `deleted_date`) VALUES
-(1, 'test_user', 'anything write', 'test@email.com', '$2y$10$vLRHMQgXGgJh6kbDaLd6relPN2CNNs/HBhyJIAS5gyPFljeP0k2LS', '2021-03-10', NULL),
-(2, 'eample', 'create example', 'example@example.com', '$2y$10$v1195e9DRUjG4TLuZWBxtuJQutlLrage2cqlAva0GFBSaql9qU0yG', '2021-03-10', NULL),
-(4, 'omi_tachibana', 'this is a test user.', 'test_test@email.com', '$2y$10$7vA1U.Mc2TJakNUCEj1Wn.XRHqSRnKVYGg5dtkaJqrzHwkXMNDCW2', '2021-03-12', NULL);
+INSERT INTO `users` (`user_id`, `user_name`, `user_icon`, `user_profile`, `mail_address`, `password`, `added_date`, `deleted_date`) VALUES
+(1, 'test_user', '', 'anything write', 'test@email.com', '$2y$10$vLRHMQgXGgJh6kbDaLd6relPN2CNNs/HBhyJIAS5gyPFljeP0k2LS', '2021-03-10', NULL),
+(2, 'eample', '', 'create example', 'example@example.com', '$2y$10$v1195e9DRUjG4TLuZWBxtuJQutlLrage2cqlAva0GFBSaql9qU0yG', '2021-03-10', NULL),
+(4, 'gomi_tachibana', 'uploads/icons/kaden_taijukei.png', 'test function.\r\nI like hoge.', 'test_test@email.com', '$2y$10$7vA1U.Mc2TJakNUCEj1Wn.XRHqSRnKVYGg5dtkaJqrzHwkXMNDCW2', '2021-03-12', NULL),
+(6, 'robot', '', 'Hello, human.', 'robo@email.com', '$2y$10$RBlKcL0lTMscpPFKFGg9gOIY8Gy/./chSPAuFXf.sab0WsLIShnkC', '2021-03-24', NULL);
 
 -- --------------------------------------------------------
 
@@ -150,14 +164,15 @@ CREATE TABLE `works` (
 --
 
 INSERT INTO `works` (`work_id`, `work_title`, `detail`, `category_id`, `user_id`, `nice`, `added_date`) VALUES
-(25, 'crime food', 'If you eat this, your health is broken.', 5, 4, 0, '2021-03-17'),
-(26, 'いなりが入っている', 'I like a Inari sushi.', 5, 4, 121, '2021-03-17'),
+(25, 'crime food', 'If you eat this, your health is broken.\ni am hungry', 5, 4, 9, '2021-03-17'),
+(26, 'いなりが入っているが？', 'I like a Inari sushi.\r\nI\'m hungry.\r\nhoge', 5, 4, 121, '2021-03-17'),
 (27, 'Where is this?', 'I dont know this area.', 2, 1, 8, '2021-03-17'),
-(28, 'FF14', 'Any other people should play this game.', 4, 1, 18, '2021-03-17'),
+(28, 'FF14', 'Any other people should play this game.', 4, 1, 28, '2021-03-17'),
 (30, 'sample', 'sample detail\r\nyou can write anything.', 1, 2, 42, '2021-03-17'),
-(31, 'Cat is a God.', '???????????', 6, 2, 20, '2021-03-17'),
+(31, 'Cat is a God.', '???????????', 6, 2, 32, '2021-03-17'),
 (33, '管楽器はいいぞ', 'I was tired writing any details in English.', 1, 2, 0, '2021-03-17'),
-(34, 'no images', 'trai', 3, 4, 0, '2021-03-17');
+(43, 'beautiful world', 'I think so.', 2, 6, 21, '2021-03-24'),
+(44, 'great fall', 'ヤベーところ', 7, 6, 0, '2021-03-25');
 
 -- --------------------------------------------------------
 
@@ -195,7 +210,12 @@ INSERT INTO `works_comments` (`work_id`, `comment_id`) VALUES
 (25, 18),
 (25, 19),
 (28, 20),
-(31, 21);
+(31, 21),
+(30, 22),
+(31, 23),
+(35, 24),
+(30, 25),
+(31, 26);
 
 -- --------------------------------------------------------
 
@@ -232,7 +252,13 @@ INSERT INTO `works_pictures` (`work_id`, `picture_id`) VALUES
 (32, 58),
 (33, 59),
 (33, 60),
-(33, 61);
+(33, 61),
+(35, 62),
+(37, 63),
+(41, 64),
+(43, 65),
+(43, 66),
+(44, 67);
 
 --
 -- Indexes for dumped tables
@@ -288,25 +314,25 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `comment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `comment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `pictures`
 --
 ALTER TABLE `pictures`
-  MODIFY `picture_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `picture_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `works`
 --
 ALTER TABLE `works`
-  MODIFY `work_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `work_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
