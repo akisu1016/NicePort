@@ -59,6 +59,7 @@ session_start();
               <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
             </span>
           </div>
+        </form>
       </div>
 
       <!-- <form action="" method="POST">

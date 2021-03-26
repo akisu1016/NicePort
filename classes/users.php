@@ -80,7 +80,6 @@ class Users extends Database
       $result = $this->conn->query($sql);
 
       if ($result == TRUE) {
-        http_response_code(301);
         header("Location: ./login.php");
         exit;
       } else {

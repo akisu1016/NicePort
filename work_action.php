@@ -36,14 +36,18 @@ if (isset($_POST['UpLoad_works'])) {
 if (isset($_POST['upload_comment'])) {
   session_start();
   $work_id = $_GET['work_id'];
-  $user_id = $_SESSION['user_id'];
-  $value = $_POST["comment"];
-  $date = date("Y-m-d H:i:s");
+  if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $value = $_POST["comment"];
+    $date = date("Y-m-d H:i:s");
 
-  $comment_id = $work_obj->upload_comments($value, $date, $user_id);
-  $work_obj->insert_works_comments($work_id, $comment_id);
+    $comment_id = $work_obj->upload_comments($value, $date, $user_id);
+    $work_obj->insert_works_comments($work_id, $comment_id);
 
-  header("location:work_detail.php?work_id=$work_id");
+    header("location:work_detail.php?work_id=$work_id");
+  } else {
+    header("location:work_detail.php?work_id=$work_id");
+  }
 }
 
 if (isset($_POST['count'])) {

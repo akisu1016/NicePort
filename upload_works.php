@@ -135,11 +135,11 @@ if (is_null($_SESSION['user_id'])) {
         <form method="POST" enctype="multipart/form-data" action="work_action.php"> <input type="hidden" name="login" value="true">
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <label for="Inputtitle">Works Title</label>
-            <input type="title" name="title" class="form-control" id="Inputtitle" placeholder="Enter Your Favorite Works Title">
+            <input type="title" name="title" class="form-control" id="Inputtitle" placeholder="Enter Your Favorite Works Title" required>
           </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <label for="Inputdetail">Works Detail</label>
-            <textarea type="detail" class="form-control" name="detail" cols="50" rows="5" placeholder="Enter Your Favorite Works Detail"></textarea>
+            <textarea type="detail" class="form-control" name="detail" cols="50" rows="5" placeholder="Enter Your Favorite Works Detail" required></textarea>
           </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
             <label for="Inputfile">Display images</label>
@@ -149,8 +149,8 @@ if (is_null($_SESSION['user_id'])) {
             <p class="help-block">You can select up to 5 pieces.</p>
           </div>
           <div class="mb-4 form-group mx-auto" style="width: 500px;">
-            <select name="category" class="form-select" aria-label="Default select example">
-              <option selected>Select Category</option>
+            <select name="category" class="form-select" aria-label="Default select example" required>
+              <option selected　disabled value="">Select Category</option>
               <option value="1">music</option>
               <option value="2">photo</option>
               <option value="3">movie</option>
